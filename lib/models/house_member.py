@@ -55,3 +55,36 @@ class Housemember:
             raise ValueError(
                 "chore_id must reference a chore in the database"
             )
+        
+    @classmethod
+    def create_table(cls):
+       sql= """
+            CREATE TABLE IF NOT EXIST house_members(
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            schedule TEXT,
+            chore_id INTEGER,
+            FOREIGN KEY (chore_id) REFERNCES chores(id)
+        )
+        """
+       CURSOR.execute(sql)
+       CONN.commit()
+
+    @classmethod
+    def drop_table(cls):
+        sql= """
+            DROP TABLE IF EXISTS house_members;
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    def save(self):
+        sql= """
+            INSERT INTO house_members (name, schedule, chore_id)
+            VALUES (?, ?, ?)
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+        
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self
