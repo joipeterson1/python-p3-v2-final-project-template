@@ -6,15 +6,14 @@ class Housemember:
 
     all = {}
 
-    def __init__(self, name, schedule, chore_id, id=None):
+    def __init__(self, name, chore_id, id=None):
         self.name = name
         self.chore_id = chore_id
-        self.schedule = schedule
         self.id = id
 
     def __repr__(self):
         return (f"<House Member {self.id}: {self.name}, " +
-                f"Chore ID: {self.chore_id}, {self.schedule}>"
+                f"Chore ID: {self.chore_id}>"
                 )
     
     @property
@@ -28,19 +27,6 @@ class Housemember:
         else:
             raise ValueError(
                 "Name must be a non-empty string"
-            )
-        
-    @property
-    def schedule(self):
-        return self._schedule
-    
-    @schedule.setter
-    def schedule(self, schedule):
-        if isinstance(schedule, str) and len(schedule):
-            self._schedule = schedule
-        else:
-            raise ValueError(
-                "Schedule must be a non-empty string"
             )
         
     @property
@@ -62,7 +48,6 @@ class Housemember:
             CREATE TABLE IF NOT EXIST house_members(
             id INTEGER PRIMARY KEY,
             name TEXT,
-            schedule TEXT,
             chore_id INTEGER,
             FOREIGN KEY (chore_id) REFERNCES chores(id)
         )
@@ -80,8 +65,8 @@ class Housemember:
 
     def save(self):
         sql= """
-            INSERT INTO house_members (name, schedule, chore_id)
-            VALUES (?, ?, ?)
+            INSERT INTO house_members (name, chore_id)
+            VALUES (?, ?)
         """
         CURSOR.execute(sql)
         CONN.commit()
