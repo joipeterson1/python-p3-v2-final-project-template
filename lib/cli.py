@@ -14,6 +14,7 @@ from helpers import (
     update_house_member,
     delete_house_member,
     list_chore_by_schedule,
+    list_chore_by_location,
     list_chore_house_member
 )
 
@@ -49,6 +50,8 @@ def main():
         elif choice == "12":
             list_chore_by_schedule()
         elif choice == "13":
+            list_chore_by_location()
+        elif choice == "14":
             list_chore_house_member()
         else:
             print("Invalid choice")
@@ -69,7 +72,8 @@ def menu():
     print("10. Update a House Member")
     print("11. Delete a House Member")
     print("12. List all chores by schedule")
-    print("13. List all House Members per chore")
+    print("13. List all chores by location")
+    print("14. List all House Members per chore")
 
 
 if __name__ == "__main__":
