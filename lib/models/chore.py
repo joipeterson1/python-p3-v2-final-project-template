@@ -107,10 +107,10 @@ class Chore:
             DELETE FROM chores
             WHERE id = ?
         """
-        CURSOR.execute(sql,(self.id,))
+        CURSOR.execute(sql, (self.id,))
         CONN.commit()
 
-        del type (self).all(self.id)
+        del type(self).all[self.id]
 
         self.id = None
 

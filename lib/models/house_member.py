@@ -97,7 +97,7 @@ class Housemember:
         CURSOR.execute(sql,(self.id,))
         CONN.commit()
 
-        del type (self).all(self.id)
+        del type(self).all[self.id]
 
         self.id = None
 

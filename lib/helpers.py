@@ -90,7 +90,7 @@ def update_house_member():
             house_member.chore_id = chore_id
             
             house_member.update()
-            print(f'{chore} has been updated!')
+            print(f'{house_member} has been updated!')
         except Exception as exc:
             print("Error updating the house member: ", exc)
     else:
