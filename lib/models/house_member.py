@@ -1,6 +1,6 @@
 # lib/models/house_member.py
-from models.__init__ import CURSOR, CONN
-from models.chore import Chore
+from .__init__ import CURSOR, CONN
+from .chore import Chore
 
 class Housemember:
 
@@ -45,11 +45,11 @@ class Housemember:
     @classmethod
     def create_table(cls):
        sql= """
-            CREATE TABLE IF NOT EXIST house_members(
+            CREATE TABLE IF NOT EXISTS house_members(
             id INTEGER PRIMARY KEY,
             name TEXT,
             chore_id INTEGER,
-            FOREIGN KEY (chore_id) REFERNCES chores(id)
+            FOREIGN KEY (chore_id) REFERENCES chores(id)
         )
         """
        CURSOR.execute(sql)
@@ -76,9 +76,9 @@ class Housemember:
 
     @classmethod
     def create(cls, name, chore_id):
-        house_member = cls(name, chore_id)
-        house_member.save()
-        return house_member
+            house_member = cls(name, chore_id)
+            house_member.save()
+            return house_member
     
     def update(self):
         sql = """

@@ -1,7 +1,22 @@
 # lib/cli.py
-from helpers import exit_program, list_chores, find_chores_by_name, create_chore, update_chore, delete_chore, list_house_members, find_house_member_by_name, find_house_member_by_id, create_house_member, update_house_member, delete_house_member, list_chore_by_schedule, list_chore_by_location, list_chore_house_member
 
-
+from helpers import (
+    exit_program, 
+    list_chores, 
+    find_chores_by_name, 
+    create_chore, 
+    update_chore, 
+    delete_chore, 
+    list_house_members, 
+    find_house_member_by_name, 
+    find_house_member_by_id, 
+    create_house_member, 
+    update_house_member, 
+    delete_house_member, 
+    list_chore_by_schedule, 
+    list_chore_by_location, 
+    list_chore_house_member
+)
 
 def main():
     while True:

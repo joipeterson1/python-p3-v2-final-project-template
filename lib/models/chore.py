@@ -1,5 +1,5 @@
 # lib/models/chore.py
-from models.__init__ import CURSOR, CONN
+from .__init__ import CURSOR, CONN
 
 class Chore:
     
@@ -58,11 +58,11 @@ class Chore:
     @classmethod
     def create_table(cls):
        sql= """
-            CREATE TABLE IF NOT EXIST chores(
+            CREATE TABLE IF NOT EXISTS chores (
             id INTEGER PRIMARY KEY,
             name TEXT,
             schedule TEXT,
-            location TEXT,
+            location TEXT
         )
         """
        CURSOR.execute(sql)
@@ -81,7 +81,7 @@ class Chore:
             INSERT INTO chores (name, schedule, location)
             VALUES (?, ?, ?)
         """
-        CURSOR.execute(sql)
+        CURSOR.execute(sql, (self.name, self.schedule, self.location))
         CONN.commit()
         
         self.id = CURSOR.lastrowid
@@ -138,13 +138,13 @@ class Chore:
         return [cls.instance_from_db(row) for row in rows]
     
     @classmethod
-    def find_by_id(cls, id):
+    def find_by_id(cls, _id):
         sql = """
             SELECT *
             FROM chores
             WHERE id = ?
         """
-        row = CURSOR.execute(sql(id, )).fetchone()
+        row = CURSOR.execute(sql, (_id, )).fetchone()
         return cls.instance_from_db(row) if row else None
 
     @classmethod
