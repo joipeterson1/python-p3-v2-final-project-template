@@ -1,4 +1,4 @@
-# lib/helpers.py
+#!/usr/bin/env python3
 from models.chore import Chore
 from models.house_member import Housemember
 

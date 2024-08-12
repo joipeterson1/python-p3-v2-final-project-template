@@ -1,4 +1,4 @@
-# lib/models/house_member.py
+#!/usr/bin/env python3
 from .__init__ import CURSOR, CONN
 from .chore import Chore
 

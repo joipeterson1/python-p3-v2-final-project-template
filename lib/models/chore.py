@@ -1,4 +1,4 @@
-# lib/models/chore.py
+#!/usr/bin/env python3
 from .__init__ import CURSOR, CONN
 
 class Chore:
