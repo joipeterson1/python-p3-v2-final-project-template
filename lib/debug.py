@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 from models.__init__ import CONN, CURSOR
 from models.chore import Chore
 from models.house_member import Housemember

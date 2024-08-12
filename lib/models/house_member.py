@@ -74,74 +74,74 @@ class Housemember:
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 
-    @classmethod
-    def create(cls, name, chore_id):
-            house_member = cls(name, chore_id)
-            house_member.save()
-            return house_member
+    # @classmethod
+    # def create(cls, name, chore_id):
+    #         house_member = cls(name, chore_id)
+    #         house_member.save()
+    #         return house_member
     
-    def update(self):
-        sql = """
-            UPDATE house_member
-            SET name = ?, chore_id = ?
-            WHERE id = ?
-        """
-        CURSOR.execute(sql, (self.name, self.chore_id))
-        CONN.commit()
+    # def update(self):
+    #     sql = """
+    #         UPDATE house_member
+    #         SET name = ?, chore_id = ?
+    #         WHERE id = ?
+    #     """
+    #     CURSOR.execute(sql, (self.name, self.chore_id))
+    #     CONN.commit()
 
-    def delete(self):
-        sql = """
-            DELETE FROM house_member
-            WHERE id = ?
-        """
-        CURSOR.execute(sql,(self.id,))
-        CONN.commit()
+    # def delete(self):
+    #     sql = """
+    #         DELETE FROM house_member
+    #         WHERE id = ?
+    #     """
+    #     CURSOR.execute(sql,(self.id,))
+    #     CONN.commit()
 
-        del type(self).all[self.id]
+    #     del type(self).all[self.id]
 
-        self.id = None
+    #     self.id = None
 
-    @classmethod
-    def instance_from_db(cls, row):
-        chore = cls.all.get(row[0])
-        if chore:
-            chore.name = row[1]
-            chore.chore_id = row[2]
-        else:
-            chore = cls(row[1], row[2])
-            chore.id = row[0]
-            cls.all[chore.id] = chore
-            return chore
+    # @classmethod
+    # def instance_from_db(cls, row):
+    #     chore = cls.all.get(row[0])
+    #     if chore:
+    #         chore.name = row[1]
+    #         chore.chore_id = row[2]
+    #     else:
+    #         chore = cls(row[1], row[2])
+    #         chore.id = row[0]
+    #         cls.all[chore.id] = chore
+    #         return chore
         
-    @classmethod
-    def get_all(cls):
-        sql = """
-            SELECT *
-            FROM house_member
-        """
+    # @classmethod
+    # def get_all(cls):
+    #     sql = """
+    #         SELECT *
+    #         FROM house_member
+    #     """
 
-        rows = CURSOR.execute(sql).fetchall()
-        return [cls.instance_from_db(row) for row in rows]
+    #     rows = CURSOR.execute(sql).fetchall()
+    #     return [cls.instance_from_db(row) for row in rows]
     
-    @classmethod
-    def find_by_id(cls, id):
-        sql = """
-            SELECT *
-            FROM house_member
-            WHERE id = ?
-        """
-        row = CURSOR.execute(sql(id, )).fetchone()
-        return cls.instance_from_db(row) if row else None
+    # @classmethod
+    # def find_by_id(cls, id):
+    #     sql = """
+    #         SELECT *
+    #         FROM house_member
+    #         WHERE id = ?
+    #     """
+    #     row = CURSOR.execute(sql(id, )).fetchone()
+    #     return cls.instance_from_db(row) if row else None
 
-    @classmethod
-    def find_by_name(cls, name):
-        sql = """
-            SELECT *
-            FROM house_member
-            WHERE name is ?
-        """
-        row = CURSOR.execute(sql (name,)).fetchone()
-        return cls.instance_from_db(row) if row else None
+    # @classmethod
+    # def find_by_name(cls, name):
+    #     sql = """
+    #         SELECT *
+    #         FROM house_member
+    #         WHERE name is ?
+    #     """
+    #     row = CURSOR.execute(sql (name,)).fetchone()
+    #     return cls.instance_from_db(row) if row else None
 
     
 
