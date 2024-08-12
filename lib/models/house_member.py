@@ -35,7 +35,7 @@ class Housemember:
     
     @chore_id.setter
     def chore_id(self, chore_id):
-        if type(chore_id) is int and Chore.find_by_id(chore_id):
+        if isinstance (chore_id, int) and Chore.find_by_id(chore_id):
             self._chore_id = chore_id
         else:
             raise ValueError(
@@ -68,17 +68,17 @@ class Housemember:
             INSERT INTO house_members (name, chore_id)
             VALUES (?, ?)
         """
-        CURSOR.execute(sql)
+        CURSOR.execute(sql, (self.name, self.chore_id))
         CONN.commit()
         
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 
-    # @classmethod
-    # def create(cls, name, chore_id):
-    #         house_member = cls(name, chore_id)
-    #         house_member.save()
-    #         return house_member
+    @classmethod
+    def create(cls, name, chore_id):
+            house_member = cls(name, chore_id)
+            house_member.save()
+            return house_member
     
     # def update(self):
     #     sql = """
@@ -111,7 +111,7 @@ class Housemember:
             chore = cls(row[1], row[2])
             chore.id = row[0]
             cls.all[chore.id] = chore
-            return chore
+        return chore
         
     @classmethod
     def get_all(cls):
@@ -123,25 +123,25 @@ class Housemember:
         rows = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_db(row) for row in rows]
     
-    # @classmethod
-    # def find_by_id(cls, id):
-    #     sql = """
-    #         SELECT *
-    #         FROM house_member
-    #         WHERE id = ?
-    #     """
-    #     row = CURSOR.execute(sql(id, )).fetchone()
-    #     return cls.instance_from_db(row) if row else None
+    @classmethod
+    def find_by_id(cls, id):
+        sql = """
+            SELECT *
+            FROM house_members
+            WHERE id = ?
+        """
+        row = CURSOR.execute(sql, (id, )).fetchone()
+        return cls.instance_from_db(row) if row else None
 
-    # @classmethod
-    # def find_by_name(cls, name):
-    #     sql = """
-    #         SELECT *
-    #         FROM house_member
-    #         WHERE name is ?
-    #     """
-    #     row = CURSOR.execute(sql (name,)).fetchone()
-    #     return cls.instance_from_db(row) if row else None
+    @classmethod
+    def find_by_name(cls, name):
+        sql = """
+            SELECT *
+            FROM house_members
+            WHERE name is ?
+        """
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None
 
     
 

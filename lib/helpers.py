@@ -79,28 +79,28 @@ def list_house_members():
     for house_member in house_members:
         print(house_member)
 
-# def find_house_member_by_name():
-#     name = input("Enter the name of the House Member: ")
-#     house_member = Housemember.find_by_name(name)
-#     print(house_member) if house_member else print(
-#         f'{name}? Sorry, never heard of them...'
-#     )
+def find_house_member_by_name():
+    name = input("Enter the name of the House Member: ")
+    house_member = Housemember.find_by_name(name)
+    print(house_member) if house_member else print(
+        f'{name}? Sorry, never heard of them...'
+    )
 
-# def find_house_member_by_id():
-#     id = input("Enter the ID of the House Member: ")
-#     house_member = house_member.find_by_id(id)
-#     print(house_member) if house_member else print(
-#         f'Oops! House Member {id} not found'
-#     )
+def find_house_member_by_id():
+    id = input("Enter the ID of the House Member: ")
+    house_member = Housemember.find_by_id(id)
+    print(house_member) if house_member else print(
+        f'Oops! House Member {id} not found'
+    )
 
-# def create_house_member():
-#     name = input("Enter the name of the chore: ")
-#     chore_id = input("Enter the house member's chore ID: ")
-#     try:
-#         house_member = Housemember.create(name, chore_id)
-#         print(f'Yay! {house_member} is old enough to do chores now!')
-#     except Exception as exc:
-#         print("Error adding house member: ", exc)
+def create_house_member():
+    name = input("Enter the name of the member: ")
+    chore_id = input("Enter the house member's chore ID: ")
+    try:
+        house_member = Housemember.create(name, chore_id)
+        print(f'Yay! {house_member} is old enough to do chores now!')
+    except Exception as exc:
+        print("Error adding house member: ", exc)
 
 # def update_house_member():
 #     id_ = input("Enter the house member's ID that needs to be updated: ")
