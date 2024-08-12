@@ -87,32 +87,32 @@ class Chore:
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 
-    # @classmethod
-    # def create(cls, name, schedule, location):
-    #     chore = cls(name, schedule, location)
-    #     chore.save()
-    #     return chore
+    @classmethod
+    def create(cls, name, schedule, location):
+        chore = cls(name, schedule, location)
+        chore.save()
+        return chore
     
-    # def update(self):
-    #     sql = """
-    #         UPDATE chores
-    #         SET name = ?, schedule = ?, location = ?
-    #         WHERE id = ?
-    #     """
-    #     CURSOR.execute(sql, (self.name, self.schedule, self.location))
-    #     CONN.commit()
+    def update(self):
+        sql = """
+            UPDATE chores
+            SET name = ?, schedule = ?, location = ?
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.name, self.schedule, self.location, self.id))
+        CONN.commit()
 
-    # def delete(self):
-    #     sql = """
-    #         DELETE FROM chores
-    #         WHERE id = ?
-    #     """
-    #     CURSOR.execute(sql, (self.id,))
-    #     CONN.commit()
+    def delete(self):
+        sql = """
+            DELETE FROM chores
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
 
-    #     del type(self).all[self.id]
+        del type(self).all[self.id]
 
-    #     self.id = None
+        self.id = None
 
     @classmethod
     def instance_from_db(cls, row):
@@ -137,25 +137,25 @@ class Chore:
         rows = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_db(row) for row in rows]
     
-    # @classmethod
-    # def find_by_id(cls, _id):
-    #     sql = """
-    #         SELECT *
-    #         FROM chores
-    #         WHERE id = ?
-    #     """
-    #     row = CURSOR.execute(sql, (_id, )).fetchone()
-    #     return cls.instance_from_db(row) if row else None
+    @classmethod
+    def find_by_id(cls, _id):
+        sql = """
+            SELECT *
+            FROM chores
+            WHERE id = ?
+        """
+        row = CURSOR.execute(sql, (_id, )).fetchone()
+        return cls.instance_from_db(row) if row else None
 
-    # @classmethod
-    # def find_by_name(cls, name):
-    #     sql = """
-    #         SELECT *
-    #         FROM chores
-    #         WHERE name is ?
-    #     """
-    #     row = CURSOR.execute(sql, (name,)).fetchone()
-    #     return cls.instance_from_db(row) if row else None
+    @classmethod
+    def find_by_name(cls, name):
+        sql = """
+            SELECT *
+            FROM chores
+            WHERE name is ?
+        """
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None
     
     # @classmethod
     # def find_by_schedule(cls, schedule):

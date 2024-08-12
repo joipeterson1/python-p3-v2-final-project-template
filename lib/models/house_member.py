@@ -101,27 +101,27 @@ class Housemember:
 
     #     self.id = None
 
-    # @classmethod
-    # def instance_from_db(cls, row):
-    #     chore = cls.all.get(row[0])
-    #     if chore:
-    #         chore.name = row[1]
-    #         chore.chore_id = row[2]
-    #     else:
-    #         chore = cls(row[1], row[2])
-    #         chore.id = row[0]
-    #         cls.all[chore.id] = chore
-    #         return chore
+    @classmethod
+    def instance_from_db(cls, row):
+        chore = cls.all.get(row[0])
+        if chore:
+            chore.name = row[1]
+            chore.chore_id = row[2]
+        else:
+            chore = cls(row[1], row[2])
+            chore.id = row[0]
+            cls.all[chore.id] = chore
+            return chore
         
-    # @classmethod
-    # def get_all(cls):
-    #     sql = """
-    #         SELECT *
-    #         FROM house_member
-    #     """
+    @classmethod
+    def get_all(cls):
+        sql = """
+            SELECT *
+            FROM house_members
+        """
 
-    #     rows = CURSOR.execute(sql).fetchall()
-    #     return [cls.instance_from_db(row) for row in rows]
+        rows = CURSOR.execute(sql).fetchall()
+        return [cls.instance_from_db(row) for row in rows]
     
     # @classmethod
     # def find_by_id(cls, id):

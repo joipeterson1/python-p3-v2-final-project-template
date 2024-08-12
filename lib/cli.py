@@ -3,11 +3,11 @@
 from helpers import (
     exit_program, 
     list_chores, 
-    # find_chores_by_name, 
-    # create_chore, 
-    # update_chore, 
-    # delete_chore, 
-    # list_house_members, 
+    find_chores_by_name, 
+    create_chore, 
+    update_chore, 
+    delete_chore, 
+    list_house_members, 
     # find_house_member_by_name, 
     # find_house_member_by_id, 
     # create_house_member, 
@@ -26,16 +26,16 @@ def main():
             exit_program()
         elif choice == "1":
             list_chores()
-        # elif choice == "2":
-        #     find_chores_by_name()
-        # elif choice == "3":
-        #     create_chore()
-        # elif choice == "4":
-        #     update_chore()
-        # elif choice == "5":
-        #     delete_chore()
-        # elif choice == "6":
-        #     list_house_members()
+        elif choice == "2":
+            find_chores_by_name()
+        elif choice == "3":
+            create_chore()
+        elif choice == "4":
+            update_chore()
+        elif choice == "5":
+            delete_chore()
+        elif choice == "6":
+            list_house_members()
         # elif choice == "7":
         #     find_house_member_by_name()
         # elif choice == "8":
@@ -60,11 +60,11 @@ def menu():
     print("Please select an option:")
     print("0. Exit the program")
     print("1. List all chores")
-    # print("2. Find chores by name")
-    # print("3. Create a new chore")
-    # print("4. Update a chore")
-    # print("5. Delete a chore")
-    # print("6. List all House Members")
+    print("2. Find chores by name")
+    print("3. Create a new chore")
+    print("4. Update a chore")
+    print("5. Delete a chore")
+    print("6. List all House Members")
     # print("7. Find House Members by name")
     # print("8. Find House Members by id")
     # print("9. Create a new House Member")
