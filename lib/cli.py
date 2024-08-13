@@ -11,11 +11,11 @@ from helpers import (
     find_house_member_by_name, 
     find_house_member_by_id, 
     create_house_member, 
-    # update_house_member, 
-    # delete_house_member, 
-    # list_chore_by_schedule, 
-    # list_chore_by_location, 
-    # list_chore_house_member
+    update_house_member, 
+    delete_house_member, 
+    list_chore_by_schedule, 
+    list_chore_by_location, 
+    list_chore_house_member
 )
 
 def main():
@@ -42,16 +42,16 @@ def main():
             find_house_member_by_id()
         elif choice == "9":
             create_house_member()
-        # elif choice == "10":
-        #     update_house_member()
-        # elif choice == "11":
-        #     delete_house_member()
-        # elif choice == "12":
-        #     list_chore_by_schedule()
-        # elif choice == "13":
-        #     list_chore_by_location()
-        # elif choice == "14":
-        #     list_chore_house_member()
+        elif choice == "10":
+            update_house_member()
+        elif choice == "11":
+            delete_house_member()
+        elif choice == "12":
+            list_chore_by_schedule()
+        elif choice == "13":
+            list_chore_by_location()
+        elif choice == "14":
+            list_chore_house_member()
         else:
             print("Invalid choice")
 
@@ -68,11 +68,11 @@ def menu():
     print("7. Find House Members by name")
     print("8. Find House Members by id")
     print("9. Create a new House Member")
-    # print("10. Update a House Member")
-    # print("11. Delete a House Member")
-    # print("12. List all chores by schedule")
-    # print("13. List all chores by location")
-    # print("14. List all House Members per chore")
+    print("10. Update a House Member")
+    print("11. Delete a House Member")
+    print("12. List all chores by schedule")
+    print("13. List all chores by location")
+    print("14. List all House Members per chore")
 
 
 if __name__ == "__main__":

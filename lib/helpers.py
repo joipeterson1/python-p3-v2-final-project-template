@@ -95,57 +95,57 @@ def find_house_member_by_id():
 
 def create_house_member():
     name = input("Enter the name of the member: ")
-    chore_id = input("Enter the house member's chore ID: ")
+    chore_id = int(input("Enter the house member's chore ID: "))
     try:
         house_member = Housemember.create(name, chore_id)
-        print(f'Yay! {house_member} is old enough to do chores now!')
+        print(f'Yay! {house_member.name} is old enough to do chores now!')
     except Exception as exc:
         print("Error adding house member: ", exc)
 
-# def update_house_member():
-#     id_ = input("Enter the house member's ID that needs to be updated: ")
-#     if house_member:= Housemember.find_by_id(id_):
-#         try:
-#             name = input("Enter the House Member's new name: ")
-#             house_member.name = name
-#             chore_id = input("Enter the House Member's new chore ID: ")
-#             house_member.chore_id = chore_id
+def update_house_member():
+    id_ = input("Enter the house member's ID that needs to be updated: ")
+    if house_member:= Housemember.find_by_id(id_):
+        try:
+            name = input("Enter the House Member's new name: ")
+            house_member.name = name
+            chore_id = int(input("Enter the House Member's new chore ID: "))
+            house_member.chore_id = chore_id
             
-#             house_member.update()
-#             print(f'{house_member} has been updated!')
-#         except Exception as exc:
-#             print("Error updating the house member: ", exc)
-#     else:
-#         print(f'Sorry, House Member {id_} does not have a chore assignment.')
+            house_member.update()
+            print(f'{house_member.name} has been updated!')
+        except Exception as exc:
+            print("Error updating the house member: ", exc)
+    else:
+        print(f'Sorry, House Member {id_} does not have a chore assignment.')
 
-# def delete_house_member():
-#     id_ = input("Enter the ID of the House Member that moved out: ")
-#     if house_member:= Housemember.find_by_id(id_):
-#         house_member.delete()
-#         print(f'House Member {id_} has moved out.')
-#     else:
-#         print(f'House Member {id_} does not have a chore assignment.')
+def delete_house_member():
+    id_ = input("Enter the ID of the House Member that moved out: ")
+    if house_member:= Housemember.find_by_id(id_):
+        house_member.delete()
+        print(f'{house_member.name} has moved out.')
+    else:
+        print(f'House Member {id_} does not have a chore assignment.')
 
-# def list_chore_by_schedule():
-#     schedule = input("Enter the schedule of the Chores: ")
-#     chore = Chore.find_by_schedule(schedule)
-#     print(chore) if chore else print(
-#         f'There is no chore with this schedule'
-#     )
+def list_chore_by_schedule():
+    schedule = input("Enter the schedule of the Chores: ")
+    chore = Chore.find_by_schedule(schedule)
+    print(chore) if chore else print(
+        f'There is no chore with this schedule'
+    )
 
-# def list_chore_by_location():
-#     location = input("Enter the location of the Chores: ")
-#     chore = Chore.find_by_location(location)
-#     print(chore) if location else print(
-#         f'No chore is required for that location'
-#     )
+def list_chore_by_location():
+    location = input("Enter the location of the Chores: ")
+    chore = Chore.find_by_location(location)
+    print(chore) if chore else print(
+        f'No chore is required for that location'
+    )
 
-# def list_chore_house_member ():
-#     chore_id = input("Enter the chore's ID: ")
-#     chore = Chore.find_by_id(chore_id)
-#     if chore:
-#         house_members = chore.house_members()
-#         for house_member in house_members:
-#             print(house_member)
-#     else:
-#         print(f'Chore {chore_id} is not on the list')
+def list_chore_house_member():
+    chore_id = int(input("Enter the chore's ID: "))
+    chore = Chore.find_by_id(chore_id)
+    if chore:
+        house_members = chore.house_members()
+        for house_member in house_members:
+            print(house_member)
+    else:
+        print(f'Chore {chore_id} is not on the list')

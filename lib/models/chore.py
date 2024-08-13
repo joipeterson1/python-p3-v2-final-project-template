@@ -157,37 +157,38 @@ class Chore:
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
     
-    # @classmethod
-    # def find_by_schedule(cls, schedule):
-    #     sql = """
-    #         SELECT *
-    #         FROM chores
-    #         WHERE schedule is ?
-    #     """
-    #     row = CURSOR.execute(sql (schedule,)).fetchall()
-    #     return cls.instance_from_db(row) if row else None
+    @classmethod
+    def find_by_schedule(cls, schedule):
+        sql = """
+            SELECT *
+            FROM chores
+            WHERE schedule is ?
+        """
+        rows = CURSOR.execute(sql, (schedule,)).fetchall()
+        return [cls.instance_from_db(row) for row in rows]
     
-    # @classmethod
-    # def find_by_location(cls, location):
-    #     sql = """
-    #         SELECT *
-    #         FROM chores
-    #         WHERE location is ?
-    #     """
-    #     row = CURSOR.execute(sql (location,)).fetchall()
-    #     return cls.instance_from_db(row) if row else None
+    @classmethod
+    def find_by_location(cls, location):
+        sql = """
+            SELECT *
+            FROM chores
+            WHERE location is ?
+        """
+        rows = CURSOR.execute(sql, (location,)).fetchall()
+        return [cls.instance_from_db(row) for row in rows]
 
-    # def house_members(self):
-    #     from models.house_member import Housemember
-    #     sql = """
-    #         SELECT * from house_members
-    #         WHERE chores_id = ?
-    #     """
-    #     CURSOR.execute(sql (self.id,),)
-    #     rows = CURSOR.fetchall()
-    #     return [
-    #         Housemember.instance_from_db(row) for row in rows
-    #     ]
+    def house_members(self):
+        from models.house_member import Housemember
+        sql = """
+            SELECT * 
+            FROM house_members
+            WHERE chore_id = ?
+        """
+        CURSOR.execute(sql, (self.id,),)
+        rows = CURSOR.fetchall()
+        return [
+            Housemember.instance_from_db(row) for row in rows
+        ]
     
 
 

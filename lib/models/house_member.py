@@ -35,7 +35,7 @@ class Housemember:
     
     @chore_id.setter
     def chore_id(self, chore_id):
-        if isinstance (chore_id, int) and Chore.find_by_id(chore_id):
+        if type(chore_id) is int and Chore.find_by_id(chore_id):
             self._chore_id = chore_id
         else:
             raise ValueError(
@@ -80,26 +80,26 @@ class Housemember:
             house_member.save()
             return house_member
     
-    # def update(self):
-    #     sql = """
-    #         UPDATE house_member
-    #         SET name = ?, chore_id = ?
-    #         WHERE id = ?
-    #     """
-    #     CURSOR.execute(sql, (self.name, self.chore_id))
-    #     CONN.commit()
+    def update(self):
+        sql = """
+            UPDATE house_members
+            SET name = ?, chore_id = ?
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.name, self.chore_id, self.id))
+        CONN.commit()
 
-    # def delete(self):
-    #     sql = """
-    #         DELETE FROM house_member
-    #         WHERE id = ?
-    #     """
-    #     CURSOR.execute(sql,(self.id,))
-    #     CONN.commit()
+    def delete(self):
+        sql = """
+            DELETE FROM house_members
+            WHERE id = ?
+        """
+        CURSOR.execute(sql,(self.id,))
+        CONN.commit()
 
-    #     del type(self).all[self.id]
+        del type(self).all[self.id]
 
-    #     self.id = None
+        self.id = None
 
     @classmethod
     def instance_from_db(cls, row):
