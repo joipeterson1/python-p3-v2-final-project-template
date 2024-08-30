@@ -20,8 +20,8 @@ def find_chores_by_name():
 
 def create_chore():
     name = input("Enter the name of the chore: ")
-    schedule = input("Enter the chore's schedule (MWF, TuTh, SaSu, Everyday): ")
-    location = input("Enter the chore's location: ")
+    schedule = input("Enter the chore's schedule (MWF, TuTh, SaSu, Everyday, As Needed): ")
+    location = input("Enter the chore's location (Laundry Room, Kitchen, Bedroom, Front Yard, Back Yard, Bathroom, Upstairs, Everywhere): ")
     try:
         chore = Chore.create(name, schedule, location)
         print(f'{chore} was added :( ...')
@@ -66,14 +66,6 @@ def delete_chore():
     else:
         print(f'Chore {id_} is not on the list.')
 
-def delete_chore():
-    id_ = input("Enter the ID of the chore you want to delete: ")
-    if chore:= Chore.find_by_id(id_):
-        chore.delete()
-        print(f'Good News! we have a maid for Chore {id_} now!')
-    else:
-        print(f'Chore {id_} is not on the list.')
-
 def list_house_members():
     house_members = Housemember.get_all()
     for house_member in house_members:
@@ -95,9 +87,10 @@ def find_house_member_by_id():
 
 def create_house_member():
     name = input("Enter the name of the member: ")
+    age = int(input("Enter the house member's age: "))
     chore_id = int(input("Enter the house member's chore ID: "))
     try:
-        house_member = Housemember.create(name, chore_id)
+        house_member = Housemember.create(name, age, chore_id)
         print(f'Yay! {house_member.name} is old enough to do chores now!')
     except Exception as exc:
         print("Error adding house member: ", exc)
@@ -122,6 +115,7 @@ def delete_house_member():
     id_ = input("Enter the ID of the House Member that moved out: ")
     if house_member:= Housemember.find_by_id(id_):
         house_member.delete()
+        Housemember.renumber_ids()
         print(f'{house_member.name} has moved out.')
     else:
         print(f'House Member {id_} does not have a chore assignment.')

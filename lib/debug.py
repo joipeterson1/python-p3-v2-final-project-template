@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
-from models.__init__ import CONN, CURSOR
+import sqlite3
+
+CONN = sqlite3.connect('chore.db')
+CURSOR = CONN.cursor()
 from models.chore import Chore
 from models.house_member import Housemember
 import ipdb
@@ -13,8 +16,8 @@ def reset_database():
 
     dishes = Chore.create("Dishes", "Everyday", "Kitchen")
     laundry = Chore.create("Laundry", "SaSu", "Laundry Room")
-    Housemember.create("Joi", dishes)
-    Housemember.create("Malik", laundry)
+    Housemember.create("Joi", 26, dishes.id)
+    Housemember.create("Malik", 27, laundry.id)
 
 reset_database()
 ipdb.set_trace()

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-from .__init__ import CURSOR, CONN
+import sqlite3
+
+CONN = sqlite3.connect('chore.db')
+CURSOR = CONN.cursor()
+
 
 class Chore:
     
@@ -24,6 +28,7 @@ class Chore:
     def name(self, name):
         if isinstance(name, str) and len(name):
             self._name = name
+
         else:
             raise ValueError(
                 "Name must be a non-empty string"
@@ -35,11 +40,12 @@ class Chore:
     
     @schedule.setter
     def schedule(self, schedule):
-        if isinstance(schedule, str) and len(schedule):
+        schedules = ["MWF", "TuTh", "SaSu", "Everyday", "As Needed"]
+        if isinstance(schedule, str) and schedule in schedules:
             self._schedule = schedule
         else:
             raise ValueError(
-                "Schedule must be a non-empty string"
+                "Schedule must be a string from the schedules list."
             )
         
     @property
@@ -48,17 +54,18 @@ class Chore:
     
     @location.setter
     def location(self, location):
-        if isinstance(location, str) and len(location):
+        house_locations = ["Laundry Room", "Kitchen", "Bedroom", "Front Yard", "Back Yard", "Bathroom", "Upstairs", "Everywhere"]
+        if isinstance(location, str) and location in house_locations:
             self._location = location
         else:
             raise ValueError(
-                "location must be a non-empty string"
+                "location must be a string in the house_locations list"
             )
         
     @classmethod
     def create_table(cls):
        sql= """
-            CREATE TABLE IF NOT EXISTS chores (
+        CREATE TABLE IF NOT EXISTS chores (
             id INTEGER PRIMARY KEY,
             name TEXT,
             schedule TEXT,
@@ -67,6 +74,7 @@ class Chore:
         """
        CURSOR.execute(sql)
        CONN.commit()
+       print("Chores table created or already exists.")
 
     @classmethod
     def drop_table(cls):
@@ -75,6 +83,7 @@ class Chore:
         """
         CURSOR.execute(sql)
         CONN.commit()
+        print("Chores table dropped.")
 
     def save(self):
         sql= """

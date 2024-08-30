@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
+import sqlite3
 
-from models.__init__ import CONN, CURSOR
+CONN = sqlite3.connect('chore.db')
+CURSOR = CONN.cursor()
 from models.chore import Chore
 from models.house_member import Housemember
 
@@ -18,8 +20,11 @@ def seed_database():
     print("Chores in the database:", Chore.all)
 
 
-    Housemember.create("Joi", dishes.id)
-    Housemember.create("Malik", laundry.id)
+    Housemember.create("Joi", 26, dishes.id)
+    Housemember.create("Malik", 27, laundry.id)
 
-seed_database()
+    print("Housemembers in the database:", Housemember.all)
+
+if __name__ == "__main__":
+    seed_database()
 print("The database has been seeded!")

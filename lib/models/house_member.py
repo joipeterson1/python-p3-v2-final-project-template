@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
-from .__init__ import CURSOR, CONN
-from .chore import Chore
+import sqlite3
+
+CONN = sqlite3.connect('chore.db')
+CURSOR = CONN.cursor()
+
+from models.chore import Chore
 
 class Housemember:
 
     all = {}
 
-    def __init__(self, name, chore_id, id=None):
+    def __init__(self, name, age, chore_id, id=None):
         self.name = name
+        self.age = age
         self.chore_id = chore_id
         self.id = id
 
     def __repr__(self):
         return (f"<House Member {self.id}: {self.name}, " +
+                f"{self.name} is {self.age} years old, " +
                 f"Chore ID: {self.chore_id}>"
                 )
     
@@ -27,6 +33,19 @@ class Housemember:
         else:
             raise ValueError(
                 "Name must be a non-empty string"
+            )
+            
+    @property
+    def age(self):
+        return self._age
+    
+    @age.setter
+    def age(self, age):
+        if isinstance(age, int) and (age > 5):
+            self._age = age
+        else:
+            raise ValueError(
+                "The House member must be 6 or older to be assigned a chore."
             )
         
     @property
@@ -48,6 +67,7 @@ class Housemember:
             CREATE TABLE IF NOT EXISTS house_members(
             id INTEGER PRIMARY KEY,
             name TEXT,
+            age INTEGER,
             chore_id INTEGER,
             FOREIGN KEY (chore_id) REFERENCES chores(id)
         )
@@ -65,28 +85,28 @@ class Housemember:
 
     def save(self):
         sql= """
-            INSERT INTO house_members (name, chore_id)
-            VALUES (?, ?)
+            INSERT INTO house_members (name, age, chore_id)
+            VALUES (?, ?, ?)
         """
-        CURSOR.execute(sql, (self.name, self.chore_id))
+        CURSOR.execute(sql, (self.name, self.age, self.chore_id))
         CONN.commit()
         
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 
     @classmethod
-    def create(cls, name, chore_id):
-            house_member = cls(name, chore_id)
+    def create(cls, name, age, chore_id):
+            house_member = cls(name, age, chore_id)
             house_member.save()
             return house_member
     
     def update(self):
         sql = """
             UPDATE house_members
-            SET name = ?, chore_id = ?
+            SET name = ?, age = ?, chore_id = ?
             WHERE id = ?
         """
-        CURSOR.execute(sql, (self.name, self.chore_id, self.id))
+        CURSOR.execute(sql, (self.name, self.age, self.chore_id, self.id))
         CONN.commit()
 
     def delete(self):
@@ -103,15 +123,16 @@ class Housemember:
 
     @classmethod
     def instance_from_db(cls, row):
-        chore = cls.all.get(row[0])
-        if chore:
-            chore.name = row[1]
-            chore.chore_id = row[2]
+        house_member = cls.all.get(row[0])
+        if house_member:
+            house_member.name = row[1]
+            house_member.age = row[2]
+            house_member.chore_id = row[3]
         else:
-            chore = cls(row[1], row[2])
-            chore.id = row[0]
-            cls.all[chore.id] = chore
-        return chore
+            house_member = cls(row[1], row[2], row[3])
+            house_member.id = row[0]
+            cls.all[house_member.id] = house_member
+        return house_member
         
     @classmethod
     def get_all(cls):
@@ -142,7 +163,20 @@ class Housemember:
         """
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
-
-    
+    @classmethod
+    def renumber_ids(cls):
+        sql = """
+            SELECT id FROM house_members ORDER BY id
+        """
+        ids = CURSOR.execute(sql).fetchall()
+        for index, (id,) in enumerate(ids):
+            new_id = index + 1
+            sql = """
+                UPDATE house_members
+                SET id = ?
+                WHERE id = ?
+            """
+            CURSOR.execute(sql, (new_id, id))
+            CONN.commit()
 
 
