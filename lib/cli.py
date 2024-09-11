@@ -58,7 +58,7 @@ def main():
 
 def menu():
     print("Please select an option:")
-    print("0. Exit the program")
+    print("0. Exit")
     print("1. List all chores")
     print("2. Find chores by name")
     print("3. Create a new chore")

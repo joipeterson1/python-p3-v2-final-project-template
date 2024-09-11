@@ -3,7 +3,7 @@ from models.chore import Chore
 from models.house_member import Housemember
 
 def exit_program():
-    print("Goodbye!")
+    print("Exiting the program...")
     exit()
 
 def list_chores():
