@@ -15,7 +15,14 @@ def find_chores_by_name():
     name = input("Enter the name of the Chore: ")
     chore = Chore.find_by_name(name)
     print(chore) if chore else print(
-        f'Oops! {name} is not on the list'
+        f'Oops! {name} is not on the list.'
+    )
+
+def find_chores_by_id():
+    id_ = input("Enter the ID of the Chore: ")
+    chore = Chore.find_by_id(id_)
+    print(chore) if chore else print(
+        f'Oops! {id_} does not exist.'
     )
 
 def create_chore():
