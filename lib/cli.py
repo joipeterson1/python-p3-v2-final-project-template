@@ -70,7 +70,7 @@ def menu():
     print("6. Delete a chore")
     print("7. List all House Members")
     print("8. Find House Members by name")
-    print("9. Find House Members by id")
+    print("9. Find House Members by ID")
     print("10. Create a new House Member")
     print("11. Update a House Member")
     print("12. Delete a House Member")
