@@ -43,12 +43,17 @@ def main():
                             update_house_member()
                         elif housemember_choice == "4":
                             delete_house_member()
+                        elif housemember_choice == "5":
+                            exit_program()
                         else:
                             print("Invalid Choice!")
-
+                    elif chore_choice == "2":
+                        exit_program()
                     else:
                         print("Invalid Choice!")
                 chores_detail_menu_()
+            elif chore_list_choice == "2":
+               exit_program()
 
             else:
                 print("Invalid Choice!")
@@ -85,9 +90,11 @@ def main_menu():
 
 def chore_list_menu():
     print("1. More details.")
+    print("2. Exit.")
 
 def chore_details_menu():
     print("1. See all house members.")
+    print("2. Exit.")
 
 
 def housemember_menu():
@@ -95,6 +102,7 @@ def housemember_menu():
     print("2. Add a new house member.")
     print("3. Update a house member.")
     print("4. Delete a house member.")
+    print("5. Exit.")
    
 
 if __name__ == "__main__":
