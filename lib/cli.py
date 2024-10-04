@@ -97,3 +97,5 @@ def housemember_menu():
     print("4. Delete a house member.")
    
 
+if __name__ == "__main__":
+    main()
