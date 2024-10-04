@@ -2,15 +2,21 @@
 from models.chore import Chore
 from models.house_member import Housemember
 
+def space():
+    print("")
+
+def line():
+    print("_____________________")    
+
 def list_chores():
     chores = Chore.get_all()
-    print("_____________________")
-    print(" ")
+    line()
+    space()
     print("The House Chore List:")
     for chore in chores:
         print(f"{chore.id}. {chore.name}")
-    print(" ")
-    print("_____________________")
+    space()
+    line()
 
 
 def create_chore():
@@ -38,9 +44,9 @@ def update_chore():
             chore.location = location
             
             chore.update()
-            print(" ")
+            space()
             print(f'{chore} has been updated!')
-            print(" ")
+            space()
         except Exception as exc:
             print("Error updating the chore: ", exc)
     else:
@@ -62,9 +68,9 @@ def delete_chore():
     chore = Chore.find_by_id(selected_chore)
     if chore:
         chore.delete()
-        print(" ")
+        space()
         print(f'Good News! we have a maid for Chore {selected_chore} now! See the new chore list below!')
-        print(" ")
+        space()
         update_chore_ids()
         list_chores()
     else:
@@ -74,11 +80,11 @@ def chore_details():
     selected_chore = input("Which chore would you like to select? ")
     chore = Chore.find_by_id(selected_chore)
     if chore:
-        print(" ")
+        space()
         print(f"****** {chore.name} ******")
         print(f"Schedule: {chore.schedule}")
         print(f"Location: {chore.location}")
-        print(" ")
+        space()
         housemembers = chore.house_members()
         for housemember in housemembers:
             print("")
@@ -90,25 +96,25 @@ def chore_details():
 
 def list_housemembers():
     housemembers = Housemember.get_all()
-    print("_____________________")
-    print(" ")
+    line()
+    space()
     print("The House Members:")
     for housemember in housemembers:
         print(f"{housemember.id}. {housemember.name}")
-    print(" ")
-    print("_____________________")
+    space()
+    line()
 
 def housemember_details():
     selected_housemember = input("Select a house member: ")
     housemember = Housemember.find_by_id(selected_housemember)
     if housemember:
-        print(" ")
+        space()
         print(f"**** Meet {housemember.name}! ****")
         print(f"{housemember.name} is {housemember.age} years old.")
         assigned_chore = Chore.find_by_id(housemember.chore_id)
         if assigned_chore:
             print(f"The chore that {housemember.name} is assigned to is {assigned_chore}.")
-            print(" ")
+            space()
         else:
             print("Chore not found!")
     else:
@@ -126,9 +132,9 @@ def create_house_member():
         print("Chore not found!")
     try:
         house_member = Housemember.create(name, age, chore_id)
-        print(" ")
+        space()
         print(f'Yay! {house_member.name} is old enough to do chores now!')
-        print(" ")
+        space()
     except Exception as exc:
         print("Error adding house member: ", exc)
 
@@ -147,9 +153,9 @@ def update_house_member():
             house_member.chore_id = chore_id
             
             house_member.update()
-            print(" ")
+            space()
             print(f'{house_member.name} has been updated!')
-            print(" ")
+            space()
         except Exception as exc:
             print("Error updating the house member: ", exc)
     else:
@@ -171,35 +177,35 @@ def list_schedule():
     chores_sasu = Chore.find_by_schedule("SaSu")
     chores_everyday = Chore.find_by_schedule("Everyday")
     chores_as_needed = Chore.find_by_schedule("As Needed")
-    print("_____________________")
-    print(" ")
+    line()
+    space()
     print("**** The Chore Schedule ****")
-    print(" ")
+    space()
     print("Mondays, Wednesdays and Fridays: ")
     for chore in chores_mwf:
         print(f"- {chore.name}, Location: {chore.location}")
 
-    print(" ")
+    space()
     print("Tuesdays and Thursdays: ")
     for chore in chores_tuth:
         print(f"- {chore.name}, Location: {chore.location}")
 
-    print(" ")
+    space()
     print("Saturdays an Sundays: ")
     for chore in chores_sasu:
             print(f"- {chore.name}, Location: {chore.location}")
 
-    print(" ")
+    space()
     print("Everyday: ")
     for chore in chores_everyday:
             print(f"- {chore.name}, Location: {chore.location}")
 
-    print(" ")
+    space()
     print("As Needed: ")
     for chore in chores_as_needed:
             print(f"- {chore.name}, Location: {chore.location}")
-    print(" ")
-    print("_____________________")
+    space()
+    line()
 
 def exit_program():
     print("Exiting the program...")
