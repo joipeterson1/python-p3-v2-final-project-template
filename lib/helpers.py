@@ -124,7 +124,7 @@ def housemember_details():
 def create_house_member():
     name = input("Enter the name of the member: ")
     age = int(input("Enter the house member's age: "))
-    selected_chore = (input("Enter the name house member's chore: "))
+    selected_chore = (input("Enter the name of the house member's chore: "))
     chore = Chore.find_by_name(selected_chore)
     if chore:
         chore_id = chore.id

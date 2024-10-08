@@ -15,50 +15,65 @@ from helpers import(
     exit_program,
 )
 
+            # *********** NESTED MENUS ************
+
+def chore_list_menu_():
+    chore_list_menu()
+    chore_list_choice = input("> ")
+    if chore_list_choice == "1":
+        chore_details()
+        chores_detail_menu_()
+    elif chore_list_choice == "2":
+        exit_program()
+    else:
+        print("Invalid Choice!")
+
+
+
+def housemember_menu_():
+    housemember_menu()
+    housemember_choice = input("> ")
+    if housemember_choice == "1":
+        housemember_details()
+    elif housemember_choice == "2":
+        create_house_member()
+    elif housemember_choice == "3":
+        update_house_member()
+    elif housemember_choice == "4":
+        delete_house_member()
+    elif housemember_choice == "5":
+        exit_program()
+    else:
+        print("Invalid Choice!")
+
+
+
+def chores_detail_menu_():
+    chore_details_menu()
+    chore_choice = input("> ")
+    if chore_choice == "1":
+        list_housemembers()
+        housemember_menu_()
+    elif chore_choice == "2":
+        exit_program()
+    else:
+        print("Invalid Choice!")
+
+def chore_details_menu():
+    print("1. See all house members.")
+    print("2. Exit.")
+
+
+
+
+            # *********** MAIN MENU ************
 def main():
     while True:
         main_menu()
         choice = input("> ")
         if choice == "1":
             list_chores()
-
-            chore_list_menu()
-            chore_list_choice = input("> ")
-            if chore_list_choice == "1":
-                chore_details()
-
-                def chores_detail_menu_():
-                    chore_details_menu()
-                    chore_choice = input("> ")
-                    if chore_choice == "1":
-                        list_housemembers()
-
-                        housemember_menu()
-                        housemember_choice = input("> ")
-                        if housemember_choice == "1":
-                            housemember_details()
-                        elif housemember_choice == "2":
-                            create_house_member()
-                        elif housemember_choice == "3":
-                            update_house_member()
-                        elif housemember_choice == "4":
-                            delete_house_member()
-                        elif housemember_choice == "5":
-                            exit_program()
-                        else:
-                            print("Invalid Choice!")
-                    elif chore_choice == "2":
-                        exit_program()
-                    else:
-                        print("Invalid Choice!")
-                chores_detail_menu_()
-            elif chore_list_choice == "2":
-               exit_program()
-
-            else:
-                print("Invalid Choice!")
-
-
+            chore_list_menu_()
         elif choice == "2":
             create_chore()
         elif choice =="3":
@@ -69,13 +84,12 @@ def main():
             list_schedule()
         elif choice == "6":
             list_housemembers()
-            housemember_menu()
+            housemember_menu_()
         elif choice == "7":
             exit_program()
         else:
             print("Invalid Choice!")
 
-            # *********** MENUS ************
 
 def main_menu():
     print("Please select an option:")
@@ -90,10 +104,6 @@ def main_menu():
 
 def chore_list_menu():
     print("1. More details.")
-    print("2. Exit.")
-
-def chore_details_menu():
-    print("1. See all house members.")
     print("2. Exit.")
 
 
